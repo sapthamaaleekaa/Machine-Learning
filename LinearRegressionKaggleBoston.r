@@ -3,7 +3,7 @@ require("Hmisc")
 require("caret")
 library("dummies")
 library("caTools")
-library(MLmetrics)
+library("MLmetrics")
 setwd("C:\\Users\\Home\\Desktop\\Saptha")
 Sys.setenv(JAVA_HOME='C:/Program Files/Java/jre1.8.0_121')
 
@@ -273,6 +273,9 @@ sub2 <- house_test[,c(1,81)]
 write.csv(sub2, file = "submission2.csv")
 
 ############# categorical variable analysis using AVOVA ##############
+############# For Continuous dependent variable and categorical independent variables we do feature analysis using ANOVA ############# 
+# Analysis of variance (ANOVA) is a statistical technique that is used to check if the means of two or more groups are significantly different from 
+# each other. ANOVA checks the impact of one or more factors by comparing the means of different samples.
 
 isfactorcolumns
 m3 <- lm(house_train$SalePrice ~ ., data = house_train[,isfactorcolumns])
@@ -304,7 +307,9 @@ split <- sample.split(house_train.new,SplitRatio = 0.80)
 train<- subset(house_train.new,split == TRUE)
 test <- subset(house_train.new,split == FALSE)
 
-################ Doing feature analysis by adding the above least f scored categorical variables and comparing mape score ##############
+################ Doing feature analysis by adding the above least f scored categorical variables(i.e. in ANOVA test) and comparing mape score ##############
+# These features were removed one by one(say BsmtCond first, then BsmtCond,Fence next and so on, adding features one by one to removal list ), 
+#ensuring that removal of any feature did'nt increase MAPE without removing anything.
 
 train_names <- names(train)
 m4_names <- setdiff(train_names,"SalePrice")
@@ -378,6 +383,8 @@ m4 <- lm(train$SalePrice ~ ., data = train[,m4_names])
 p4 <- predict.lm(m4, newdata = test)
 print (m4_names)
 MAPE(y_pred = p4 , y_true = test$SalePrice)
+# These features were removed one by one(say BsmtFinSF2 first, then BsmtFinSF2,BsmtHalfBath next and so on, adding features one by one to removal list ), 
+#ensuring that removal of any feature did'nt increase MAPE without removing anything.
 #0.1180879 after removing variables is less than, MAPE without removing anything : 0.1374622
 
 ########################################### Now train the model on entire train data #########################
