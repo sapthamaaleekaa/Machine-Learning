@@ -298,6 +298,7 @@ anova(m3)
 ############# Train the model and compare MAPE value of test data to get better model accuracy #############
 
 ################ Installing package for creating dummy variables #################
+############ Dummy encoding is done to handle new factor levels in test data, which is originally not present in train data ############ 
 #install.packages("dummies")
 house_train.new <- dummy.data.frame(house_train, sep = ".")
 dim(house_train.new)
