@@ -247,9 +247,9 @@ print (oc)
 # 0.02118958       MiscVal
 # 0.01684415  BsmtHalfBath
 # 0.01137812    BsmtFinSF2
-# Multiple R Squared : 0.9196
+# Adjusted R-squared:  0.9196 
 
-###### Removing variables among this which increases multiple R Squared: ######
+###### Removing variables among this which on removal increases Adjusted R-squared: ######
 
 m2 <- lm(rc$SalePrice ~ ., data = rc[,-c(80,36,48,75,45,77,1,68,47)])
 summary(m2)  
